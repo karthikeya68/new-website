@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D DevOps Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f2027;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(0,255,255,0.5);
+    animation: float 4s ease-in-out infinite;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, cyan, magenta);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+@keyframes float {
+    0% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-20px); }
+    100% { transform: translate(-50%, -50%) translateY(0px); }
+}
+</style>
+</head>
+<body>
+
+<div class="content">
+    <h1>🚀 DevOps 3D Website</h1>
+    <p>Deployed using Jenkins on EC2</p>
+    <button onclick="alert('Welcome Karthikeya! 🔥')">Explore</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+let renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+let geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+let material = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+let torus = new THREE.Mesh(geometry, material);
+
+scene.add(torus);
+camera.position.z = 30;
+
+function animate() {
+    requestAnimationFrame(animate);
+    torus.rotation.x += 0.01;
+    torus.rotation.y += 0.01;
+    renderer.render(scene, camera);
+}
+
+animate();
+
+window.addEventListener('resize', function() {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+});
+</script>
+
+</body>
+</html>
